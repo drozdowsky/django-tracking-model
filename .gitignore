@@ -1,0 +1,11 @@
+dist/*
+django_tracking_model.egg-info/*
+.coverage
+.tox/
+Django-*.egg
+*.pyc
+htmlcov/
+docs/_build/
+.idea/
+.eggs/
+.pytest_cache/

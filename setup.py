@@ -1,0 +1,20 @@
+import os
+from setuptools import setup
+
+here = os.path.abspath(os.path.dirname(__file__))
+README = open(os.path.join(here, 'README.md')).read()
+
+setup(
+    name='django-tracking-model',
+    version='1.0.0',
+    packages=['tracking_model'],
+    description='Track changes made to django model instance.',
+    long_description=README,
+    author='drozdowsky',
+    author_email='hdrozdow+github@pm.me',
+    url='https://github.com/drozdowsky/django-tracking-model/',
+    license='MIT',
+    install_requires=[
+        'Django>=1.9',
+    ]
+)

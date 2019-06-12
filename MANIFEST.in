@@ -1,0 +1,3 @@
+include *.txt *.ini *.cfg *.rst *.md
+recursive-include tracking_model *.ico *.png *.css *.gif *.jpg *.txt *.js *.html *.xml
+recursive-include tests *.py
