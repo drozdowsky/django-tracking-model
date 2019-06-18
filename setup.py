@@ -6,10 +6,11 @@ README = open(os.path.join(here, 'README.md')).read()
 
 setup(
     name='django-tracking-model',
-    version='1.0.0',
+    version='0.1.0',
     packages=['tracking_model'],
     description='Track changes made to django model instance.',
     long_description=README,
+    long_description_content_type='text/markdown',
     author='drozdowsky',
     author_email='hdrozdow+github@pm.me',
     url='https://github.com/drozdowsky/django-tracking-model/',

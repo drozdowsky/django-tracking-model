@@ -1,6 +1,8 @@
-from __future__ import unicode_literals, absolute_import
+from __future__ import absolute_import, unicode_literals
 
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
+
 from tracking_model import TrackingModelMixin
 
 
@@ -22,3 +24,9 @@ class ModelA(TrackingModelMixin, models.Model):
 class SignalModel(TrackingModelMixin, models.Model):
     text_field = models.TextField(null=True)
     signal_field = models.TextField(null=True)
+    post_signal_field = models.TextField(null=True)
+
+
+class MutableModel(TrackingModelMixin, models.Model):
+    text = models.TextField(null=True)
+    array_field = ArrayField(models.TextField(), null=True)

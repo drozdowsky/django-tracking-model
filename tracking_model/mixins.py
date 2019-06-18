@@ -25,20 +25,14 @@ class TrackingModelMixin(object):
         return self._state._tracker
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
-        created = self._state.adding
-        if created:
-            self.tracker.newly_created = True
+        self.tracker.newly_created = self._state.adding
         super(TrackingModelMixin, self).save(force_insert, force_update, using, update_fields)
-        if not created:
-            self.tracker.newly_created = False
-            if self.tracker.changed:
-                if update_fields:
-                    for field in update_fields:
-                        self.tracker.changed.pop(field, None)
-                else:
-                    self.tracker.changed = {}
-        else:
-            self.tracker.changed = {}
+        if self.tracker.changed:
+            if update_fields:
+                for field in update_fields:
+                    self.tracker.changed.pop(field, None)
+            else:
+                self.tracker.changed = {}
 
     def __setattr__(self, name, value):
         if hasattr(self, '_initialized'):
