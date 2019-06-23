@@ -69,6 +69,13 @@ In [2]: e.text = 'I am not your father'
 In [3]: e.tracker.changed
 Out[4]: {'text': DeferredAttribute}
 ```
+You can specify which fields should be tracked like this:
+```python
+class Example(models.Model):
+    TRACKED_FIELDS = ['first']
+    first = models.TextField()
+    second = models.TextField()
+```
 
 ## Requirements
  * Python >= 2.7, <= 3.7

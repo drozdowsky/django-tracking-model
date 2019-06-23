@@ -3,7 +3,7 @@ from copy import deepcopy
 from django.db.models.query_utils import DeferredAttribute
 from django.test import TestCase
 
-from .models import ModelA, ModelB, SignalModel, MutableModel
+from .models import ModelA, ModelB, SignalModel, MutableModel, NarrowTrackedModel
 from .signals import *
 
 
@@ -186,3 +186,16 @@ class MutableFieldsTests(TestCase):
         self.assertEqual(m.array_field, ['I', 'am', 'your', 'father'])
         m.refresh_from_db()
         self.assertEqual(m.array_field, ['I', 'am', 'your', 'father'])
+
+
+class TrackedFieldsOnlyTests(TestCase):
+    def setUp(self):
+        self.obj = NarrowTrackedModel(
+            first='Ciao',
+            second='Siciliano'
+        )
+
+    def test_only_track_first(self):
+        self.obj.first = 'Ciao ciao'
+        self.obj.second= 'Italiano'
+        self.assertDictEqual(self.obj.tracker.changed, {'first': 'Ciao'})

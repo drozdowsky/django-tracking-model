@@ -30,3 +30,9 @@ class SignalModel(TrackingModelMixin, models.Model):
 class MutableModel(TrackingModelMixin, models.Model):
     text = models.TextField(null=True)
     array_field = ArrayField(models.TextField(), null=True)
+
+
+class NarrowTrackedModel(TrackingModelMixin, models.Model):
+    TRACKED_FIELDS = ['first']
+    first = models.TextField(null=True)
+    second = models.TextField(null=True)
