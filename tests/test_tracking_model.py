@@ -91,6 +91,11 @@ class AllFieldsTrackedModelTests(TestCase):
         b.save()
         self.assertEqual(b.tracker.newly_created, False)
 
+    def test_reverting_change_should_not_be_tracked(self):
+        self.a.text_field = 'next_value'
+        self.a.text_field = 'init_value'
+        self.assertDictEqual(self.a.tracker.changed, {})
+
 
 class DeferredFieldsTests(TestCase):
     def setUp(self):

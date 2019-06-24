@@ -16,8 +16,8 @@ from tracking_model import TrackingModelMixin
 # order matters
 class Example(TrackingModelMixin, models.Model)
     text = models.TextField(null=True)
-    self = models.ForeignKey("self", null=True)
-    array= models.ArrayField(TextField())
+    myself = models.ForeignKey("self", null=True)
+    array = models.ArrayField(TextField())
 ```
 ```python
 In [1]: e = Example.objects.create(id=1, text="Sample Text")
@@ -32,12 +32,12 @@ Out[3]: ({}, False)
 ```
 DTM will also detect changes made to ForeignKey/OneToOne fields
 ```python
-In [1]: Example.objects.create(self=e)
-In [2]: e.self = None
+In [1]: Example.objects.create(myself=e)
+In [2]: e.myself = None
 In [3]: e.tracker.changed
-Out[1]: {"self_id": 1}
+Out[1]: {"myself_id": 1}
 ```
-Because DTM does not handle mutable fields well you handle them with copy/deepcopy
+Because DTM does not handle mutable fields well, you handle them with copy/deepcopy.
 ```python
 In [1]: e = Example.objects.create(array=['I', 'am', 'your'])
 In [2]: copied = copy(e.array)
@@ -45,6 +45,7 @@ In [3]: copied.append('father')
 In [4]: e.array = copied
 In [5]: e.tracker.changed
 Out[1]: {'array': ['I', 'am', 'your', 'father']}
+In [6]: e.array = ['Testing', 'is', 'the', 'future']  # in this case copy not needed
 ```
 DTM works best with \*\_save signals
 ```python
@@ -69,7 +70,7 @@ In [2]: e.text = 'I am not your father'
 In [3]: e.tracker.changed
 Out[4]: {'text': DeferredAttribute}
 ```
-You can specify which fields should be tracked like this:
+You narrow choice of fields that should be tracked. By default everything is tracked
 ```python
 class Example(models.Model):
     TRACKED_FIELDS = ['first']
