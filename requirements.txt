@@ -1,7 +1,13 @@
-# only required to develop and test
-Django>=1.11.19
-flake8==3.7.7
-pytest==4.6.3
-pytest-django==3.5.0
-tox==3.12.1
-psycopg2
+# here we store dependencies to develop and test
+# without version as we want to develop on -current
+#
+# this file is used by github actions
+#
+# if you want to see supported python/package version look into tox.ini
+#
+Django
+flake8
+pytest
+pytest-django
+tox
+psycopg2-binary
