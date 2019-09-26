@@ -1,7 +1,7 @@
 # Django Tracking Model 🏁
 Track changes made to your model's instance.  
 Changes are cleared on save.  
-This package is intented to be used mainly with signals.  
+This package is intented to be used mainly with [signals](https://seddonym.me/2018/05/04/django-signals/).  
 Mutable fields (e.g. JSONField) are not handled with deepcopy to keep it fast and simple.  
 Meant to be model_utils's FieldTracker fast alternative.
 
@@ -23,14 +23,16 @@ class Example(TrackingModelMixin, models.Model)
 In [1]: e = Example.objects.create(id=1, text="Sample Text")
 In [2]: e.tracker.changed, e.tracker.newly_created
 Out[1]: ({}, True)
+
 In [3]: e.text = "Different Text"
 In [4]: e.tracker.changed
 Out[2]: {"text": "Sample Text"}
+
 In [5]: e.save()
 In [6]: e.tracker.changed, e.tracker.newly_created
 Out[3]: ({}, False)
 ```
-DTM will also detect changes made to ForeignKey/OneToOne fields
+DTM will also detect changes made to ForeignKey/OneToOne fields.
 ```python
 In [1]: Example.objects.create(myself=e)
 In [2]: e.myself = None
@@ -44,10 +46,11 @@ In [2]: copied = copy(e.array)
 In [3]: copied.append('father')
 In [4]: e.array = copied
 In [5]: e.tracker.changed
-Out[1]: {'array': ['I', 'am', 'your', 'father']}
+Out[1]: {'array': ['I', 'am', 'your']}
+
 In [6]: e.array = ['Testing', 'is', 'the', 'future']  # in this case copy not needed
 ```
-DTM works best with \*\_save signals
+DTM works best with \*\_save signals.
 ```python
 def pre_save_example(instance, *args, **kwargs):
     # .create() does not populate .changed, we use newly_created
@@ -63,14 +66,14 @@ In [2]: e.refresh_from_db() # not needed
 In [3]: e.array
 Out[1]: ['I', 'am', 'your', 'father']
 ```
-DTM handles deferred fields well
+DTM handles deferred fields well.
 ```python
 In [1]: e = Example.objects.only('array').first()
 In [2]: e.text = 'I am not your father' 
 In [3]: e.tracker.changed
 Out[4]: {'text': DeferredAttribute}
 ```
-You narrow choice of fields that should be tracked. By default everything is tracked
+You can narrow choice of tracked fields. By default everything is tracked.
 ```python
 class Example(models.Model):
     TRACKED_FIELDS = ['first']
