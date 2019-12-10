@@ -6,7 +6,7 @@ README = open(os.path.join(here, 'README.md')).read()
 
 setup(
     name='django-tracking-model',
-    version='0.1.1',
+    version='0.1.2',
     packages=['tracking_model'],
     description='Track changes made to django model instance.',
     long_description=README,
@@ -16,6 +16,6 @@ setup(
     url='https://github.com/drozdowsky/django-tracking-model/',
     license='MIT',
     install_requires=[
-        'Django>=1.9',
+        'Django>=1.11',
     ]
 )

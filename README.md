@@ -82,8 +82,8 @@ class Example(models.Model):
 ```
 
 ## Requirements
- * Python >= 2.7, <= 3.7
- * Django >= 1.9, <= 2.2
+ * Python >= 2.7, <= 3.8
+ * Django >= 1.11, <= 3.0
 
 ## Todo
 - [ ] Tests could be more readable
