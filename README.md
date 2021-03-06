@@ -3,7 +3,7 @@ Track changes made to your model's instance.
 Changes are cleared on save.  
 This package is intented to be used mainly with [signals](https://seddonym.me/2018/05/04/django-signals/).  
 Mutable fields (e.g. JSONField) are not handled with deepcopy to keep it fast and simple.  
-Meant to be model_utils's FieldTracker fast alternative.
+Meant to be [model_utils](https://github.com/jazzband/django-model-utils)'s FieldTracker fast alternative.
 
 *Available on [PyPi](https://pypi.org/project/django-tracking-model/)*  
 
