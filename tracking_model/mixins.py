@@ -18,15 +18,18 @@ class TrackingModelMixin(object):
 
     @property
     def tracker(self):
-        self._state._tracker = (
-            getattr(self._state, '_tracker', None) or
-            Tracker(self, getattr(self, 'TRACKED_FIELDS', None))
+        self._state._tracker = getattr(self._state, "_tracker", None) or Tracker(
+            self, getattr(self, "TRACKED_FIELDS", None)
         )
         return self._state._tracker
 
-    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+    def save(
+        self, force_insert=False, force_update=False, using=None, update_fields=None
+    ):
         self.tracker.newly_created = self._state.adding
-        super(TrackingModelMixin, self).save(force_insert, force_update, using, update_fields)
+        super(TrackingModelMixin, self).save(
+            force_insert, force_update, using, update_fields
+        )
         if self.tracker.changed:
             if update_fields:
                 for field in update_fields:
@@ -35,7 +38,7 @@ class TrackingModelMixin(object):
                 self.tracker.changed = {}
 
     def __setattr__(self, name, value):
-        if hasattr(self, '_initialized'):
+        if hasattr(self, "_initialized"):
             if name in self.tracker.tracked_fields:
                 if name not in self.tracker.changed:
                     if name in self.__dict__:

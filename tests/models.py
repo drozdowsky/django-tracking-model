@@ -14,7 +14,7 @@ class ModelB(TrackingModelMixin, models.Model):
 class ModelA(TrackingModelMixin, models.Model):
     text_field = models.TextField()
     related = models.ForeignKey(
-        ModelB, related_name='ases', null=True, on_delete=models.CASCADE
+        ModelB, related_name="ases", null=True, on_delete=models.CASCADE
     )
     related_self = models.OneToOneField(
         "self", related_name="ases_self", null=True, on_delete=models.CASCADE
@@ -33,6 +33,6 @@ class MutableModel(TrackingModelMixin, models.Model):
 
 
 class NarrowTrackedModel(TrackingModelMixin, models.Model):
-    TRACKED_FIELDS = ['first']
+    TRACKED_FIELDS = ["first"]
     first = models.TextField(null=True)
     second = models.TextField(null=True)
