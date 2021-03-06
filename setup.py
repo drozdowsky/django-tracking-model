@@ -2,11 +2,14 @@ import os
 from setuptools import setup
 
 here = os.path.abspath(os.path.dirname(__file__))
-README = open(os.path.join(here, "README.md"), errors="replace").read()
+try:
+    README = open(os.path.join(here, "README.md"), errors="replace").read()
+except TypeError:
+    README = ""
 
 setup(
     name="django-tracking-model",
-    version="0.1.3",
+    version="0.1.4",
     packages=["tracking_model"],
     description="Track changes made to django model instance.",
     long_description=README,
