@@ -10,11 +10,18 @@ jobs:
       matrix:
         python-version: [2.7, 3.5, 3.6, 3.7, 3.8]
 
+    services:
+      postgres:
+        image: postgres:10.8
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
     steps:
     - uses: actions/checkout@v1
-    - uses: harmon758/postgresql-action@v1
-      with:
-        postgresql version: '11'
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v1
       with:
