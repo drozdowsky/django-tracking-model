@@ -7,6 +7,10 @@ Meant to be [model_utils](https://github.com/jazzband/django-model-utils)'s Fiel
 
 *Available on [PyPi](https://pypi.org/project/django-tracking-model/)*  
 
+## Installation
+```sh
+pip install django-tracking-model
+```
 
 ## Usage
 ```python
