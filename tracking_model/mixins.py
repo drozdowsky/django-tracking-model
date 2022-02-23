@@ -2,26 +2,33 @@ from django.db.models.query_utils import DeferredAttribute
 
 
 class Tracker(object):
-    def __init__(self, instance, fields=None):
+    def __init__(self, instance):
         self.instance = instance
         self.newly_created = False
         self.changed = {}
-        self.tracked_fields = {f.attname for f in self.instance._meta.concrete_fields}
-        if fields is not None:
-            self.tracked_fields &= set(fields)
+        self.tracked_fields = self.instance.TRACKED_FIELDS
 
 
 class TrackingModelMixin(object):
+
+    TRACKED_FIELDS = None
+
     def __init__(self, *args, **kwargs):
         super(TrackingModelMixin, self).__init__(*args, **kwargs)
         self._initialized = True
 
     @property
     def tracker(self):
-        self._state._tracker = getattr(self._state, "_tracker", None) or Tracker(
-            self, getattr(self, "TRACKED_FIELDS", None)
-        )
-        return self._state._tracker
+        if hasattr(self._state, "_tracker"):
+            tracker = self._state._tracker
+        else:
+            # populate tracked fields for the first time
+            # by default all fields
+            if not self.TRACKED_FIELDS:
+                instance_class = type(self)
+                instance_class.TRACKED_FIELDS = {f.attname for f in instance_class._meta.concrete_fields}
+            tracker = self._state._tracker = Tracker(self)
+        return tracker
 
     def save(
         self, force_insert=False, force_update=False, using=None, update_fields=None
