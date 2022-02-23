@@ -1,7 +1,7 @@
 # Django Tracking Model / DTM 🏁
-Track changes made to your model"s instance.  
+Track changes made to your model's instance fields.  
 Changes are cleared on save.  
-This package is intented to be used mainly with [signals](https://seddonym.me/2018/05/04/django-signals/).  
+This package works well with [signals](https://seddonym.me/2018/05/04/django-signals/).  
 Mutable fields (e.g. JSONField) are not handled with deepcopy to keep it fast and simple.  
 Meant to be [model_utils](https://github.com/jazzband/django-model-utils)'s FieldTracker fast alternative.
 
@@ -86,8 +86,8 @@ class Example(models.Model):
 ```
 
 ## Requirements
- * Python >= 2.7, <= 3.8
- * Django >= 1.11, <= 3.0
+ * Python >= 2.7, <= 3.9
+ * Django >= 1.11, <= 4.0
 
 ## Todo
 - [ ] Tests could be more readable

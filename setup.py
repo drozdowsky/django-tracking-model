@@ -11,7 +11,7 @@ setup(
     name="django-tracking-model",
     version="0.1.5",
     packages=["tracking_model"],
-    description="Track changes made to django model instance.",
+    description="Track changes made to django model instance fields.",
     long_description=README,
     long_description_content_type="text/markdown",
     author="drozdowsky",
