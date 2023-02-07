@@ -96,6 +96,12 @@ class AllFieldsTrackedModelTests(TestCase):
         self.a.text_field = "init_value"
         self.assertDictEqual(self.a.tracker.changed, {})
 
+    def test_refresh_from_db_clears_changes(self):
+        self.a.text_field = "next_value"
+        self.assertDictEqual(self.a.tracker.changed, {"text_field": "init_value"})
+        self.a.refresh_from_db()
+        self.assertDictEqual(self.a.tracker.changed, {})
+
 
 class DeferredFieldsTests(TestCase):
     def setUp(self):
