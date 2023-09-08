@@ -86,9 +86,5 @@ class Example(models.Model):
 ```
 
 ## Requirements
- * Python >= 2.7, <= 3.9
- * Django >= 1.11, <= 4.0
-
-## Todo
-- [ ] Tests could be more readable
-- [ ] Signals decorators
+ * Python >= 2.7, <= 3.11
+ * Django >= 1.11, <= 4.x.y

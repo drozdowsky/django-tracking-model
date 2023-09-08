@@ -9,7 +9,7 @@ except TypeError:
 
 setup(
     name="django-tracking-model",
-    version="0.1.5",
+    version="0.1.6",
     packages=["tracking_model"],
     description="Track changes made to django model instance fields.",
     long_description=README,
