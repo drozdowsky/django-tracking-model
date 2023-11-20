@@ -3,8 +3,15 @@ from copy import deepcopy
 from django.db.models.query_utils import DeferredAttribute
 from django.test import TestCase
 
-from .models import ModelA, ModelB, SignalModel, MutableModel, NarrowTrackedModel, WithCustomTrackerModel, \
-    WithInvalidTrackerModel
+from .models import (
+    ModelA,
+    ModelB,
+    SignalModel,
+    MutableModel,
+    NarrowTrackedModel,
+    WithCustomTrackerModel,
+    WithInvalidTrackerModel,
+)
 from .signals import *
 
 
@@ -215,7 +222,6 @@ class TrackedFieldsOnlyTests(TestCase):
 
 
 class OverrideTrackerTests(TestCase):
-
     def test_tracking_mixin_raises_error_if_tracker_class_is_invalid(self):
         with self.assertRaises(TypeError) as e:
             WithInvalidTrackerModel(first="Joh", second="Doe")
