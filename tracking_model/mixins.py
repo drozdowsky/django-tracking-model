@@ -12,10 +12,23 @@ class Tracker(object):
 class TrackingModelMixin(object):
 
     TRACKED_FIELDS = None
+    tracker_class = Tracker
 
     def __init__(self, *args, **kwargs):
+        self._validate_tracker_class()
         super(TrackingModelMixin, self).__init__(*args, **kwargs)
         self._initialized = True
+
+    def _validate_tracker_class(self):
+        if not self.tracker_class:
+            raise AttributeError(
+                "Please set tracker_class attribute."
+            )
+
+        if not issubclass(self.tracker_class, Tracker):
+            raise TypeError(
+                "tracker_class must be subclass of Tracker."
+            )
 
     @property
     def tracker(self):
@@ -27,7 +40,7 @@ class TrackingModelMixin(object):
             if not self.TRACKED_FIELDS:
                 instance_class = type(self)
                 instance_class.TRACKED_FIELDS = {f.attname for f in instance_class._meta.concrete_fields}
-            tracker = self._state._tracker = Tracker(self)
+            tracker = self._state._tracker = self.tracker_class(self)
         return tracker
 
     def save(

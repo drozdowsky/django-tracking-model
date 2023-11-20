@@ -3,7 +3,8 @@ from copy import deepcopy
 from django.db.models.query_utils import DeferredAttribute
 from django.test import TestCase
 
-from .models import ModelA, ModelB, SignalModel, MutableModel, NarrowTrackedModel
+from .models import ModelA, ModelB, SignalModel, MutableModel, NarrowTrackedModel, WithCustomTrackerModel, \
+    WithInvalidTrackerModel
 from .signals import *
 
 
@@ -211,3 +212,28 @@ class TrackedFieldsOnlyTests(TestCase):
         self.obj.first = "Ciao ciao"
         self.obj.second = "Italiano"
         self.assertDictEqual(self.obj.tracker.changed, {"first": "Ciao"})
+
+
+class OverrideTrackerTests(TestCase):
+
+    def test_tracking_mixin_raises_error_if_tracker_class_is_invalid(self):
+        with self.assertRaises(TypeError) as e:
+            WithInvalidTrackerModel(first="Joh", second="Doe")
+
+        self.assertEqual(
+            str(e.exception),
+            "tracker_class must be subclass of Tracker.",
+        )
+
+    def test_instance_can_use_new_methods_of_tracker_class(self):
+        instance = WithCustomTrackerModel(first="John", second="Doe")
+        instance.first = "Mary"
+        instance.second = "Jane"
+        self.assertEqual(instance.tracker.has_changed("first"), True)
+
+        with self.assertRaises(ValueError) as e:
+            instance.tracker.has_changed("second")
+        self.assertEqual(
+            str(e.exception),
+            "second is not tracked",
+        )

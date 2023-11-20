@@ -3,7 +3,7 @@ from __future__ import absolute_import, unicode_literals
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
-from tracking_model import TrackingModelMixin
+from tracking_model import TrackingModelMixin, Tracker
 
 
 class ModelB(TrackingModelMixin, models.Model):
@@ -33,6 +33,34 @@ class MutableModel(TrackingModelMixin, models.Model):
 
 
 class NarrowTrackedModel(TrackingModelMixin, models.Model):
+    TRACKED_FIELDS = ["first"]
+    first = models.TextField(null=True)
+    second = models.TextField(null=True)
+
+
+class CustomTracker(Tracker):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    def has_changed(self, field):
+        if field not in self.tracked_fields:
+            raise ValueError("%s is not tracked" % field)
+        return field in self.changed
+
+
+class WithCustomTrackerModel(TrackingModelMixin, models.Model):
+    tracker_class = CustomTracker
+    TRACKED_FIELDS = ["first"]
+    first = models.TextField(null=True)
+    second = models.TextField(null=True)
+
+
+class InvalidTracker:
+    pass
+
+
+class WithInvalidTrackerModel(TrackingModelMixin, models.Model):
+    tracker_class = InvalidTracker
     TRACKED_FIELDS = ["first"]
     first = models.TextField(null=True)
     second = models.TextField(null=True)

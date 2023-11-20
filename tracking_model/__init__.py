@@ -1,1 +1,1 @@
-from .mixins import TrackingModelMixin
+from .mixins import TrackingModelMixin, Tracker
