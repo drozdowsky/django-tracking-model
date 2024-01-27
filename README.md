@@ -72,6 +72,7 @@ Out[1]: ["I", "am", "your", "father"]
 ```
 DTM handles deferred fields well.
 ```python
+# from django.db.models.query_utils import DeferredAttribute
 In [1]: e = Example.objects.only("array").first()
 In [2]: e.text = "I am not your father" 
 In [3]: e.tracker.changed
@@ -83,6 +84,17 @@ class Example(models.Model):
     TRACKED_FIELDS = ["first"]
     first = models.TextField()
     second = models.TextField()
+```
+You can also implement your own Tracker class:
+```python
+from tracking_model import Tracker
+
+class SuperTracker(Tracker):
+    def has_changed(self, field):
+      return field in self.changed
+
+class Example(models.Model):
+    TRACKER_CLASS = SuperTracker
 ```
 
 ## Requirements

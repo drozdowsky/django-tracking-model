@@ -224,11 +224,11 @@ class TrackedFieldsOnlyTests(TestCase):
 class OverrideTrackerTests(TestCase):
     def test_tracking_mixin_raises_error_if_tracker_class_is_invalid(self):
         with self.assertRaises(TypeError) as e:
-            WithInvalidTrackerModel(first="Joh", second="Doe")
+            WithInvalidTrackerModel(first="Joh", second="Doe").tracker
 
         self.assertEqual(
             str(e.exception),
-            "tracker_class must be subclass of Tracker.",
+            "TRACKER_CLASS must be a subclass of Tracker.",
         )
 
     def test_instance_can_use_new_methods_of_tracker_class(self):

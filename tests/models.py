@@ -39,9 +39,6 @@ class NarrowTrackedModel(TrackingModelMixin, models.Model):
 
 
 class CustomTracker(Tracker):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
     def has_changed(self, field):
         if field not in self.tracked_fields:
             raise ValueError("%s is not tracked" % field)
@@ -49,7 +46,7 @@ class CustomTracker(Tracker):
 
 
 class WithCustomTrackerModel(TrackingModelMixin, models.Model):
-    tracker_class = CustomTracker
+    TRACKER_CLASS = CustomTracker
     TRACKED_FIELDS = ["first"]
     first = models.TextField(null=True)
     second = models.TextField(null=True)
@@ -60,7 +57,7 @@ class InvalidTracker:
 
 
 class WithInvalidTrackerModel(TrackingModelMixin, models.Model):
-    tracker_class = InvalidTracker
+    TRACKER_CLASS = InvalidTracker
     TRACKED_FIELDS = ["first"]
     first = models.TextField(null=True)
     second = models.TextField(null=True)
