@@ -8,11 +8,11 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python-version: [3.9, 3.11]
+        python-version: [3.9, 3.11, 3.13]
 
     services:
       postgres:
-        image: postgres:12
+        image: postgres:13
         env:
           POSTGRES_HOST: postgres
           POSTGRES_USER: postgres

@@ -93,7 +93,7 @@ class SuperTracker(Tracker):
     def has_changed(self, field):
       return field in self.changed
 
-class Example(models.Model):
+class Example(TrackingModelMixin, models.Model):
     TRACKER_CLASS = SuperTracker
 ```
 
