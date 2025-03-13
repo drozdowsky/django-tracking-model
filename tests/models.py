@@ -3,7 +3,7 @@ from __future__ import absolute_import, unicode_literals
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
-from tracking_model import TrackingModelMixin, Tracker
+from tracking_model import Tracker, TrackingModelMixin
 
 
 class ModelB(TrackingModelMixin, models.Model):

@@ -1,11 +1,11 @@
 # Django Tracking Model / DTM 🏁
-Track changes made to your model's instance fields.  
-Changes are cleared on save.  
-This package works well with [signals](https://seddonym.me/2018/05/04/django-signals/).  
-Mutable fields (e.g. JSONField) are not handled with deepcopy to keep it fast and simple.  
+Track changes made to your model's instance fields.
+Changes are cleared on save.
+This package works well with [signals](https://seddonym.me/2018/05/04/django-signals/).
+Mutable fields (e.g. JSONField) are not handled with deepcopy to keep it fast and simple.
 Meant to be [model_utils](https://github.com/jazzband/django-model-utils)'s FieldTracker fast alternative.
 
-*Available on [PyPi](https://pypi.org/project/django-tracking-model/)*  
+*Available on [PyPi](https://pypi.org/project/django-tracking-model/)*
 
 ## Installation
 ```sh
@@ -74,7 +74,7 @@ DTM handles deferred fields well.
 ```python
 # from django.db.models.query_utils import DeferredAttribute
 In [1]: e = Example.objects.only("array").first()
-In [2]: e.text = "I am not your father" 
+In [2]: e.text = "I am not your father"
 In [3]: e.tracker.changed
 Out[4]: {"text": DeferredAttribute}
 ```
@@ -98,5 +98,5 @@ class Example(TrackingModelMixin, models.Model):
 ```
 
 ## Requirements
- * Python >= 2.7, <= 3.11
- * Django >= 1.11, <= 4.x.y
+ * Python >= 2.7, <= 3.13
+ * Django >= 1.11, <= 5.X.Y

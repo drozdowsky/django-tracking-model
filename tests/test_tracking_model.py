@@ -6,13 +6,13 @@ from django.test import TestCase
 from .models import (
     ModelA,
     ModelB,
-    SignalModel,
     MutableModel,
     NarrowTrackedModel,
+    SignalModel,
     WithCustomTrackerModel,
     WithInvalidTrackerModel,
 )
-from .signals import *
+from .signals import *  # noqa: F403
 
 
 class AllFieldsTrackedModelTests(TestCase):

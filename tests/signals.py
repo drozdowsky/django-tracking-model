@@ -1,5 +1,6 @@
-from django.db.models.signals import pre_save, post_save
-from .models import SignalModel, MutableModel
+from django.db.models.signals import post_save, pre_save
+
+from .models import MutableModel, SignalModel
 
 
 def pre_save_signal_model(instance, *args, **kwargs):

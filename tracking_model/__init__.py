@@ -1,1 +1,1 @@
-from .mixins import TrackingModelMixin, Tracker
+from .mixins import Tracker, TrackingModelMixin  # noqa: F401
