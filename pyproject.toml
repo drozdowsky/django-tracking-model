@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=40.8.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "django-tracking-model"
+requires-python = ">=2.7,<4"
+version = "0.1.8"
+description = "Track changes made to django model instance fields."
+readme = "README.md"
+license = "MIT"
+authors = [
+    { name = "drozdowsky", email = "hdrozdow+github@pm.me" }
+]
+dependencies = [
+    "Django>=1.11",
+]
+
+[indexes]
+default = "https://pypi.org/simple"
+
+[project.optional-dependencies]
+dev = [
+    "Django",
+    "flake8",
+    "pytest",
+    "pytest-django",
+    "tox",
+    "psycopg2-binary",
+]
+
+
+[project.urls]
+Homepage = "https://github.com/drozdowsky/django-tracking-model/"
+
+[tool.setuptools]
+packages = ["tracking_model"]

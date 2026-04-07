@@ -98,5 +98,5 @@ class Example(TrackingModelMixin, models.Model):
 ```
 
 ## Requirements
- * Python >= 2.7, <= 3.13
- * Django >= 1.11, <= 5.X.Y
+ * Python >= 2.7, <= 3.14
+ * Django >= 1.11, <= 6.X.Y
